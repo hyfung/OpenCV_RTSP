@@ -33,3 +33,9 @@ ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 FILENAME.m
 
 ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 $(date +%Y%m%d_%H%M%S).mp4
 ```
+## Features to add
+* Motion detection
+* Screenshot on motion detected
+* Record for a duration on motion detected
+* Notification on motion detected (e.g. Telegram Bot)
+* Logging of events (Motion, disconnection etc)
