@@ -30,7 +30,9 @@ Result:
 ## Recording RTSP Stream with FFMpeg
 ```bash
 ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 FILENAME.mp4
+```
 
+```bash
 ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 $(date +%Y%m%d_%H%M%S).mp4
 ```
 ## Features to add
