@@ -9,4 +9,4 @@ export C100_SERVER=...
 ```
 
 ## Usage
-python3 main.py
+`python3 main.py`
