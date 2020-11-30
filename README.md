@@ -21,6 +21,11 @@ ffplay rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream1
 ```bash
 ffplay rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2
 ```
+Result:
+
+![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/01.png "")
+
+![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/02.png "")
 
 ## Recording RTSP Stream with FFMpeg
 ```bash
