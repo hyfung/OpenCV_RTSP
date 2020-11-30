@@ -1,4 +1,4 @@
-# opencv_rtsp
+# Webcam RTSP with OpenCV and FFMpeg
 Sample repo to have fun with TP-Link Tapo C100 IPCAM
 
 ## Define environment variables
