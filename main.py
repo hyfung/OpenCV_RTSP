@@ -17,6 +17,7 @@ streams = {
 }
 
 img = None
+last = None
 
 def record_on_motion():
     """
@@ -27,11 +28,10 @@ def record_on_motion():
     filename = ".avi"
     cv2.VideoWriter()
     while elapsed < 30:
-
-
-    pass
+        pass
 
 def main():
+    global img
     should_record = False
 
     ap = argparse.ArgumentParser()
@@ -43,31 +43,45 @@ def main():
     args = vars(ap.parse_args())
 
     cap = cv2.VideoCapture(streams[args['src']])
-    
+
+    ret, last = cap.read()
+    ret, img = cap.read()
+
     if args['file']:
         #TODO: Create VideoWriter object to write frames to
         pass
-    
+
     while True:
-        global img
         ret, img = cap.read()
-        
+
         if args['motion']:
+            diff = cv2.absdiff(img, last)
+
+            # Timer Dimension for 360p: (230, 28)
+            # Draw a black rectangle to mask the timer
+            cv2.rectangle(diff, (0, 0), (231, 27), (0 ,0, 0), -1)
+
+            # ROI: X > 400
+            # ROI: Y > 71 and Y < 335
+
             # Motion Detection Algorithm, based on previous 5 frames
 
             # Calculate "Motion Score" to filter noise
 
+            cv2.imshow('motion', diff)
+
             if should_record:
                 record_thread = threading.Thread(record_on_motion)
                 record_thread.start()
-            pass
+
+            last = img
 
         if not args["headless"]:
             cv2.imshow('mat', img)
 
         if cv2.waitKey(33) & 0xFF == ord('q'):
-            break    
-        
+            break
+
 
 if __name__ == '__main__':
     main()
