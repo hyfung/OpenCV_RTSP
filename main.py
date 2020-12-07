@@ -37,7 +37,7 @@ def main():
     should_record = False
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--src", help="Stream Resolution: 1=1080p, 2=360p", type=int)
+    ap.add_argument("-s", "--src", help="Stream Resolution: 1=1080p, 2=360p", type=int, default=2)
     ap.add_argument("-t", "--test", help="Test with local camera",  action="store_true")
     ap.add_argument("-f", "--file", help="file name to save to", type=str)
     ap.add_argument("-m", "--motion", help="Enable motion detection", action="store_true")
@@ -66,7 +66,7 @@ def main():
 
         if args['motion']:
             cur_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            cur_gray = cv2.blur(cur_gray, (3,3))
+            cur_gray = cv2.blur(cur_gray, (5,5))
             diff = cv2.absdiff(cur_gray, last)
 
             # Timer Dimension for 360p: (230, 28)
