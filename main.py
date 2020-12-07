@@ -4,10 +4,12 @@ import os
 import cv2
 import numpy
 
-USERNAME = os.environ.get('C100_USER')
-PASSWORD = os.environ.get('C100_PASS')
-SERVER = os.environ.get('C100_IP')
+# Throws an error if environment variables weren't defined
+USERNAME = os.environ['C100_USER']
+PASSWORD = os.environ['C100_PASS']
+SERVER = os.environ['C100_IP']
 
+# URI Format for Tapo C100
 rtsp_1080p = f'rtsp://{USERNAME}:{PASSWORD}@{SERVER}/stream1'
 rtsp_360p = f'rtsp://{USERNAME}:{PASSWORD}@{SERVER}/stream2'
 
@@ -35,7 +37,7 @@ def main():
     should_record = False
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--src", help="Resolution: 1=1080p, 2=360p", type=int, default=2)
+    ap.add_argument("-s", "--src", help="Stream Resolution: 1=1080p, 2=360p", type=int, default=2)
     ap.add_argument("-f", "--file", help="file name to save to", type=str)
     ap.add_argument("-m", "--motion", help="Enable motion detection", action="store_true")
     ap.add_argument("-r", "--record-on-motion", help="Record an AVI on motion detected", action="store_true")
@@ -64,7 +66,8 @@ def main():
             # ROI: X > 400
             # ROI: Y > 71 and Y < 335
 
-            # Motion Detection Algorithm, based on previous 5 frames
+            # Simple motion detection by thresholding
+            cv.threshold(diff, 127, 255, cv.THRESH_BINARY)
 
             # Calculate "Motion Score" to filter noise
 
