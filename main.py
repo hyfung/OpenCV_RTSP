@@ -4,6 +4,7 @@ import os
 import cv2
 import numpy
 import threading
+import time
 
 # Throws an error if environment variables weren't defined
 USERNAME = os.environ['C100_USER']
@@ -22,6 +23,7 @@ streams = {
 img = None
 last = None
 record_thread = None
+last_detect = int(time.time())
 
 def record_on_motion():
     """
@@ -57,6 +59,7 @@ def main():
 
     # Prime "last" by readine a reference frame
     ret, last = cap.read()
+
     # Convert it to grayscale image
     last = cv2.cvtColor(last, cv2.COLOR_BGR2GRAY)
 
@@ -85,13 +88,19 @@ def main():
             # Simple motion detection by thresholding
             ret, diff = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)
 
-            # Calculate "Motion Score" to filter noise
             if not args["headless"]:
                 cv2.imshow('motion', diff)
 
-            if should_record:
-                record_thread = threading.Thread(record_on_motion)
-                record_thread.start()
+            # Calculate "Motion Score" to filter noise
+            contours, hierarchy = cv2.findContours(diff, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+            if len(contours) > 3 and len(contours) < 500:
+                print("Motion detected")
+                last_detect = int(time.time())
+
+                # If this detect is 5 seconds older than previous one, then trigger
+                if (time.time() - last_detect) > 5:
+                    # record_thread = threading.Thread(record_on_motion)
+                    # record_thread.start()
 
             last = cur_gray
 
