@@ -52,8 +52,13 @@ ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 FILENAME.m
 ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 $(date +%Y%m%d_%H%M%S).mp4
 ```
 ## Features to add
-* Motion detection
+* ~~Motion detection~~ Done
+* Add a motion detection debouncing timer by `time.time()`
 * Screenshot on motion detected
 * Record for a duration on motion detected
+  * Can consider using `subprocess()` and ffmpeg or use VideoWriter
 * Notification on motion detected (e.g. Telegram Bot)
+  * Request a bot token
+  * Add bot token to ENV then retrieve in `main` by `os.environ.get("BOT_TOKEN")`
 * Logging of events (Motion, disconnection etc)
+  * Local CSV or Webhook to 3rd party HTTP server
