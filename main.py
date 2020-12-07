@@ -86,8 +86,8 @@ def main():
             ret, diff = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)
 
             # Calculate "Motion Score" to filter noise
-
-            cv2.imshow('motion', diff)
+            if not args["headless"]:
+                cv2.imshow('motion', diff)
 
             if should_record:
                 record_thread = threading.Thread(record_on_motion)
