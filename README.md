@@ -39,6 +39,9 @@ Result:
 
 ![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/02.png "")
 
+Result with motion detection enabled
+![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/03.png "")
+
 ## Recording RTSP Stream with FFMpeg
 ```bash
 ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 FILENAME.mp4
