@@ -3,6 +3,7 @@ import argparse
 import os
 import cv2
 import numpy
+import threading
 
 # Throws an error if environment variables weren't defined
 USERNAME = os.environ['C100_USER']
@@ -20,10 +21,12 @@ streams = {
 
 img = None
 last = None
+record_thread = None
 
 def record_on_motion():
     """
     Sibling thread to record for 30 seconds on motion detected
+    This thread should be called by threading.Thread(record_on_motion)
     """
     global is_recording
     is_recording = True
@@ -45,16 +48,19 @@ def main():
     ap.add_argument("-l", "--headless", help="Do not show frame", action="store_true")
     args = vars(ap.parse_args())
 
-    # cap = cv2.VideoCapture(2)
-
     if  args['test']:
+        # Test locally with webcam
         cap = cv2.VideoCapture(0)
     else:
+        # Open a RTSP stream targeting the IP cam
         cap = cv2.VideoCapture(streams[args['src']])
 
+    # Prime "last" by readine a reference frame
     ret, last = cap.read()
+    # Convert it to grayscale image
     last = cv2.cvtColor(last, cv2.COLOR_BGR2GRAY)
 
+    # Prime "img" by reading a frame
     ret, img = cap.read()
 
     if args['file']:
