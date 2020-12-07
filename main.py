@@ -65,14 +65,20 @@ def main():
     ap.add_argument("-s", "--src", help="Stream Resolution: 1=1080p, 2=360p", type=int, default=2)
     ap.add_argument("-t", "--test", help="Test with local camera",  action="store_true")
     ap.add_argument("-d", "--dir", help="Directory to save CSV, JPG and AVI", type=str,)
-    ap.add_argument("-m", "--motion", help="Enable motion detection", action="store_true")
-    ap.add_argument("-r", "--record-on-motion", help="Record an AVI on motion detected", action="store_true")
+    ap.add_argument("-m", "--motion", help="Enable motion detection, directory must be provided", action="store_true")
+    ap.add_argument("-r", "--record", help="Record an AVI on motion detected", action="store_true")
     ap.add_argument("-l", "--headless", help="Perform detection in background, do not display a window", action="store_true")
     args = vars(ap.parse_args())
 
-    if args['dir']:
-        # Path to the plaintext log
+    if args['motion'] and args['dir']:
+        # If logging is specified
         motion_log = open(os.path.join(args['dir'], 'log.txt'), 'a+')
+
+    # Recording will be done in detection algorithm
+    # We just check if the directory is defined properly
+    if args['record']:
+        if args['dir'] is None:
+            raise AssertionError("DIR should not be none")
 
     if  args['test']:
         # Test locally with webcam
@@ -90,9 +96,6 @@ def main():
     # Prime "img" by reading a frame (Current Frame)
     ret, img = cap.read()
 
-    if args['dir']:
-        #TODO: Create VideoWriter object to write frames to
-        pass
 
     while True:
         ret, img = cap.read()
@@ -134,9 +137,10 @@ def main():
                     last_detect = int(time.time())
                     if args['dir']:
                         motion_log.write(time_to_string() + '\n')
-                    if args['record-on-motion']:
+                    if args['record']:
                         # Use the VideoWriter Object or
                         # Spawn a subprocess asynchronously to record for 10 seconds
+                        # Spawn a thread and kill it after 10 seconds
                         pass
 
             # Updating the reference frame
