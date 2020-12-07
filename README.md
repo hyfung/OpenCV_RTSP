@@ -9,8 +9,19 @@ export C100_SERVER=...
 ```
 
 ## Usage
+Connects to the cam and display the stream, add `-s 1` to select FHD mode, otherwise 360P is the default (`-s 2`)
 ```bash
 python3 main.py
+```
+
+Connects to the cam and display the stream with motion detection
+```bash
+python3 main.py -m
+```
+
+Headless Mode and perform motion detection in the background, does not display the stream
+```bash
+python3 main.py -m -l
 ```
 
 ## Playing RTSP Stream with FFmpeg
