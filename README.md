@@ -2,6 +2,7 @@
 Sample repo to have fun with TP-Link Tapo C100 IPCAM
 
 ## Define environment variables
+Add the following lines to your `.bashrc` file or by adding them in your systemd service as `Environment=C100_USER=...`
 ```bash
 export C100_USER=...
 export C100_PASSWORD=...
