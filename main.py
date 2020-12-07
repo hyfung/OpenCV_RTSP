@@ -37,16 +37,24 @@ def main():
     should_record = False
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--src", help="Stream Resolution: 1=1080p, 2=360p", type=int, default=2)
+    ap.add_argument("-s", "--src", help="Stream Resolution: 1=1080p, 2=360p", type=int)
+    ap.add_argument("-t", "--test", help="Test with local camera",  action="store_true")
     ap.add_argument("-f", "--file", help="file name to save to", type=str)
     ap.add_argument("-m", "--motion", help="Enable motion detection", action="store_true")
     ap.add_argument("-r", "--record-on-motion", help="Record an AVI on motion detected", action="store_true")
     ap.add_argument("-l", "--headless", help="Do not show frame", action="store_true")
     args = vars(ap.parse_args())
 
-    cap = cv2.VideoCapture(streams[args['src']])
+    # cap = cv2.VideoCapture(2)
+
+    if  args['test']:
+        cap = cv2.VideoCapture(0)
+    else:
+        cap = cv2.VideoCapture(streams[args['src']])
 
     ret, last = cap.read()
+    last = cv2.cvtColor(last, cv2.COLOR_BGR2GRAY)
+
     ret, img = cap.read()
 
     if args['file']:
@@ -57,7 +65,9 @@ def main():
         ret, img = cap.read()
 
         if args['motion']:
-            diff = cv2.absdiff(img, last)
+            cur_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            cur_gray = cv2.blur(cur_gray, (3,3))
+            diff = cv2.absdiff(cur_gray, last)
 
             # Timer Dimension for 360p: (230, 28)
             # Draw a black rectangle to mask the timer
@@ -67,7 +77,7 @@ def main():
             # ROI: Y > 71 and Y < 335
 
             # Simple motion detection by thresholding
-            cv.threshold(diff, 127, 255, cv.THRESH_BINARY)
+            ret, diff = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)
 
             # Calculate "Motion Score" to filter noise
 
@@ -77,7 +87,7 @@ def main():
                 record_thread = threading.Thread(record_on_motion)
                 record_thread.start()
 
-            last = img
+            last = cur_gray
 
         if not args["headless"]:
             cv2.imshow('mat', img)
