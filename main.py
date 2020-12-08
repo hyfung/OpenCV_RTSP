@@ -8,9 +8,13 @@ import time
 import logging
 
 # Throws an error if environment variables weren't defined
-USERNAME = os.environ['C100_USER']
-PASSWORD = os.environ['C100_PASS']
-SERVER = os.environ['C100_IP']
+try:
+    USERNAME = os.environ['C100_USER']
+    PASSWORD = os.environ['C100_PASS']
+    SERVER = os.environ['C100_IP']
+except KeyError:
+    print("Please make sure you have the environment variable defined correctly")
+    print("You may refer to README.md for instructions")
 
 # URI Format for Tapo C100
 rtsp_1080p = f'rtsp://{USERNAME}:{PASSWORD}@{SERVER}/stream1'
@@ -97,8 +101,8 @@ def main():
     # Prime "img" by reading a frame (Current Frame)
     ret, img = cap.read()
 
-
     while True:
+        # Fetch a new frame
         ret, img = cap.read()
 
         if args['motion']:
@@ -112,6 +116,7 @@ def main():
             # Draw a black rectangle to mask the timer
             cv2.rectangle(diff, (0, 0), (231, 27), (0 ,0, 0), -1)
 
+            # Base on my home setting, region where I would like to detect
             # ROI: X > 400
             # ROI: Y > 71 and Y < 335
 
