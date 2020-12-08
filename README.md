@@ -15,14 +15,18 @@ Connects to the cam and display the stream, add `-s 1` to select FHD mode, other
 python3 main.py
 ```
 
-Connects to the cam and display the stream with motion detection
+Motion Detection With Display
 ```bash
 python3 main.py -m
 ```
 
-Headless Mode and perform motion detection in the background, does not display the stream
+Headless Mode, Motion Detection
 ```bash
 python3 main.py -m -l
+```
+Headless Mode, Motion Detection, Log to `$PWD`
+```bash
+python3 main.py -m -l -d $PWD
 ```
 
 ## Playing RTSP Stream with FFmpeg
