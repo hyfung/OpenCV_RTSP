@@ -131,7 +131,7 @@ def main():
             # Set (3, 250) as detection criteria
             if len(contours) > 3 and len(contours) < 250:
                 print(len(contours))
-                print('[Motion Detected] ' + time_to_string())
+                print('[Motion Detected] ' + time_to_string_human())
                 
                 # If this detect is 10 seconds older than previous one, then fire the events
                 if (time.time() - last_detect) > 5:
