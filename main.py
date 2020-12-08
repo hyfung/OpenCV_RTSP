@@ -134,7 +134,7 @@ def main():
                 print('[Motion] ' + time_to_string())
                 
                 # If this detect is 10 seconds older than previous one, then fire the events
-                if (time.time() - last_detect) > 10:
+                if (time.time() - last_detect) > 5:
                     # Update the timer
                     last_detect = int(time.time())
                     if args['dir']:
@@ -156,6 +156,7 @@ def main():
         # Without an X-session, waitKey() immediately returns -1
         # Should think about how to hold the thread for a bit longer
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            motion_log.close()
             break
 
         # Instead of waitKey(), we hang the thread with time.sleep()
