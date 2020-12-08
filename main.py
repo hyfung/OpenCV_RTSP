@@ -8,13 +8,9 @@ import time
 import logging
 
 # Throws an error if environment variables weren't defined
-try:
-    USERNAME = os.environ['C100_USER']
-    PASSWORD = os.environ['C100_PASS']
-    SERVER = os.environ['C100_IP']
-except KeyError:
-    print("Please make sure you have the environment variable defined correctly")
-    print("You may refer to README.md for instructions")
+USERNAME = os.environ['C100_USER']
+PASSWORD = os.environ['C100_PASS']
+SERVER = os.environ['C100_IP']
 
 # URI Format for Tapo C100
 rtsp_1080p = f'rtsp://{USERNAME}:{PASSWORD}@{SERVER}/stream1'
