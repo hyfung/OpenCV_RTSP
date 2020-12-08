@@ -59,7 +59,7 @@ def record_on_motion():
         pass
 
 def main():
-    global img
+    global img, last_detect
     should_record = False
 
     ap = argparse.ArgumentParser()
