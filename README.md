@@ -57,7 +57,7 @@ ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 $(date +%Y
 ```
 ## Features to add
 * ~~Motion detection~~
-* ~~Add a motion detection debouncing timer by `time.time()`
+* ~~Add a motion detection debouncing timer by `time.time()`~~
 * Replace `f.write()` with `logger.info()`
 * Screenshot on motion detected
 * Record for a duration on motion detected
