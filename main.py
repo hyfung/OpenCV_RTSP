@@ -131,15 +131,16 @@ def main():
             # Set (3, 250) as detection criteria
             if len(contours) > 3 and len(contours) < 250:
                 print(len(contours))
-                print('[Motion] ' + time_to_string())
+                print('[Motion Detected] ' + time_to_string())
                 
                 # If this detect is 10 seconds older than previous one, then fire the events
                 if (time.time() - last_detect) > 5:
                     # Update the timer
                     last_detect = int(time.time())
                     if args['dir']:
-                        logging.info('[Motion] ' + time_to_string())
+                        logging.info('[Motion] ' + time_to_string())                        
                         motion_log.write(time_to_string() + '\n')
+                        print('[Motion Logged] ' + time_to_string())
                     if args['record']:
                         # Use the VideoWriter Object or
                         # Spawn a subprocess asynchronously to record for 10 seconds
