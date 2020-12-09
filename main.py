@@ -70,10 +70,15 @@ def main():
     ap.add_argument("-r", "--record", help="Record an AVI on motion detected", action="store_true")
     ap.add_argument("-l", "--headless", help="Perform detection in background, do not display a window", action="store_true")
     args = vars(ap.parse_args())
+    
+    logging.basicConfig(filename='opencv_rtsp.log', encoding='ascii', level=logging.INFO)
+    
+    logging.info("[Logger] Started OpenCV RTSP")
 
     if args['motion'] and args['dir']:
         # If logging is specified
         motion_log = open(os.path.join(args['dir'], 'log.txt'), 'a+')
+        logging.info(f"[Logger] Logging at {motion_log}")
 
     # Recording will be done in detection algorithm
     # We just check if the directory is defined properly
@@ -131,7 +136,7 @@ def main():
             # Set (3, 250) as detection criteria
             if len(contours) > 3 and len(contours) < 250:
                 print(len(contours))
-                print('[Motion Detected] ' + time_to_string_human())
+                logger.info('[Motion Detected] ' + time_to_string_human())
                 
                 # If this detect is 10 seconds older than previous one, then fire the events
                 if (time.time() - last_detect) > 5:
@@ -140,7 +145,7 @@ def main():
                     if args['dir']:
                         logging.info('[Motion] ' + time_to_string())                        
                         motion_log.write(time_to_string() + '\n')
-                        print('[Motion Logged] ' + time_to_string())
+                        logger.info('[Motion Logged] ' + time_to_string())
                     if args['record']:
                         # Use the VideoWriter Object or
                         # Spawn a subprocess asynchronously to record for 10 seconds
