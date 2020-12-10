@@ -71,7 +71,7 @@ def main():
     ap.add_argument("-l", "--headless", help="Perform detection in background, do not display a window", action="store_true")
     args = vars(ap.parse_args())
     
-    logging.basicConfig(filename='opencv_rtsp.log', encoding='ascii', level=logging.INFO)
+    logging.basicConfig(filename='opencv_rtsp.log', level=logging.INFO)
     
     logging.info("[Logger] Started OpenCV RTSP")
 
