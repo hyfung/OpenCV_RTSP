@@ -39,6 +39,10 @@ ffplay rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2
 ```
 Result:
 
+Installed an IP cam at my door step for this demo
+
+![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/04.png "")
+
 ![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/01.png "")
 
 ![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/02.png "")
