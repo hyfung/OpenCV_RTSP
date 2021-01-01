@@ -31,10 +31,12 @@ python3 main.py -m -l -d $PWD
 
 ## Playing RTSP Stream with FFmpeg
 ```bash
+# 1080P
 ffplay rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream1
 ```
 
 ```bash
+# 480P
 ffplay rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2
 ```
 Result:
