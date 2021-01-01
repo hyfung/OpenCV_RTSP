@@ -39,6 +39,12 @@ ffplay rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream1
 # 480P
 ffplay rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2
 ```
+
+If you need even smaller display
+```bash
+ffplay -vf scale=240:-1 rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2
+```
+
 Result:
 
 Installed an IP cam at my door step for this demo
