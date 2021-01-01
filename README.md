@@ -63,6 +63,8 @@ Old monitor + Raspberry Pi 2B = Clock + CCTV
 
 ![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/05.png "")
 
+![alt text](https://github.com/hyfung/opencv_rtsp/blob/white/images/06.png "")
+
 ## Recording RTSP Stream with FFMpeg
 ```bash
 ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 FILENAME.mp4
