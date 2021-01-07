@@ -1,5 +1,7 @@
 # Building Opencv
 
+This is a guide on how to (cross) compile OpenCV on x86_64 for arm-gnueabihf and aarch64
+
 ## Installing Dependencies
 ```bash
 sudo apt update && sudo apt install -y cmake g++ wget unzip -y
@@ -56,6 +58,13 @@ make
 ## Building for aarch64
 
 ```bash
+# Installing dependencies
+sudo apt install cpp-9-aarch64-linux-gnu \
+gcc-9-aarch64-linux-gnu g++-9-aarch64-linux-gnu -y
+```
+
+```bash
+# Taken from https://docs.opencv.org/master/d0/d76/tutorial_arm_crosscompile_with_cmake.html , might not work
 cd ~/opencv/platforms/linux
 mkdir -p build_hardfp
 cd build_hardfp
