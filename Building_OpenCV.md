@@ -23,7 +23,7 @@ make -j$(nproc)
 # sudo make install
 ```
 
-## Bulding for gnueabihf
+## Building for gnueabihf (E.g. Raspberry Pi 2b)
 
 ```bash
 # Installing dependencies
@@ -55,7 +55,7 @@ Change to `set(CMAKE_AR "/usr/bin/arm-linux-gnueabihf-gcc-ar-9")`
 make
 ```
 
-## Building for aarch64
+## Building for aarch64 (Raspberry Pi 3B or later, Jetson Nano)
 
 ```bash
 # Installing dependencies
