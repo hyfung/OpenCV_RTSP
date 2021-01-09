@@ -85,6 +85,3 @@ ffmpeg -i rtsp://${C100_USER}:${C100_PASSWORD}@${C100_SERVER}/stream2 $(date +%Y
   * Add bot token to ENV then retrieve in `main` by `os.environ.get("BOT_TOKEN")`
 * Logging of events (Motion, disconnection etc)
   * Local CSV or Webhook to 3rd party HTTP server
-
-## References
-This project is based on https://github.com/qfgaohao/pytorch-ssd and Nvidia's Hello-AI
